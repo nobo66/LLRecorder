@@ -2,6 +2,7 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.0
 import Qt.labs.folderlistmodel 2.1
+import com.nobo66.qaudiorecorderplugin 1.0
 
 ApplicationWindow {
     id:root
@@ -120,6 +121,10 @@ ApplicationWindow {
         onRejected: {
             console.log("Canceled")
         }
+    }
+
+    AudioRecorder{
+        id:recorder
     }
 
     Action {
