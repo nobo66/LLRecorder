@@ -139,7 +139,8 @@ ApplicationWindow {
         text: "Record(F5)"
         shortcut: "F5"
         onTriggered: {
-            console.log("record!!")
+            console.log("[LLRecorder]record!!")
+            recorder.record()
         }
 
         tooltip: "Start recording"
@@ -149,7 +150,8 @@ ApplicationWindow {
         text: "Stop(F6)"
         shortcut: "F6"
         onTriggered: {
-            console.log("stop!!")
+            console.log("[LLRecorder]stop!!")
+            recorder.stop()
         }
         tooltip: "Stop recording"
     }

@@ -1,4 +1,5 @@
 #include "audiorecorder.h"
+#include <QDebug>
 
 AudioRecorder::AudioRecorder(QQuickItem *parent):
     QQuickItem(parent)
@@ -8,9 +9,23 @@ AudioRecorder::AudioRecorder(QQuickItem *parent):
     // following line and re-implement updatePaintNode()
 
     // setFlag(ItemHasContents, true);
+
+    qDebug() << "[AudioRecorder]created!!";
 }
 
 AudioRecorder::~AudioRecorder()
 {
+}
+
+void AudioRecorder::record()
+{
+    qDebug() << "[AudioRecorder]record!!";
+//    m_audioRecorder->record();
+}
+
+void AudioRecorder::stop()
+{
+    qDebug() << "[AudioRecorder]stop!!";
+//    m_audioRecorder->stop();
 }
 

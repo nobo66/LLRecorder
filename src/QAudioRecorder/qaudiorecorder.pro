@@ -1,6 +1,7 @@
 TEMPLATE = lib
 TARGET = QAudioRecorder
-QT += qml quick
+QT += qml quick multimedia
+
 CONFIG += qt plugin
 
 TARGET = $$qtLibraryTarget($$TARGET)
