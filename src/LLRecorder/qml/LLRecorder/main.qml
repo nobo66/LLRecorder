@@ -32,6 +32,7 @@ ApplicationWindow {
             }
             TextField{
                 id:tfSaveFolder
+                text:fileDialog.folder
                 width:colContentsRoot.width - lbSaveFolder.width - btSaveFolder.width
             }
             Button {
@@ -46,7 +47,13 @@ ApplicationWindow {
                 width:lbSaveFolder.width
             }
             TextField{
+                id:tfSaveFile
+                property int count:01
                 width:tfSaveFolder.width
+                text:"FileName"
+                onTextChanged: {
+                    count = 01
+                }
             }
         }
         Row{
@@ -114,17 +121,25 @@ ApplicationWindow {
         id: fileDialog
         title: "Please choose a file"
         selectFolder: true
+
         onAccepted: {
             console.log("You chose: " + fileDialog.fileUrls)
-            tfSaveFolder.text = folder
+//            tfSaveFolder.text = folder
         }
         onRejected: {
             console.log("Canceled")
         }
+        //暫定処理
+        //ToDo:保存ファイルから取得する
+        Component.onCompleted: {
+            fileDialog.folder = "file:///Users/nobo66/Music/LLRecorder"
+        }
+
     }
 
     AudioRecorder{
         id:recorder
+        source:tfSaveFolder.text+"/"+tfSaveFile.text+"_"+tfSaveFile.count
     }
 
     Action {
@@ -141,6 +156,7 @@ ApplicationWindow {
         onTriggered: {
             console.log("[LLRecorder]record!!")
             recorder.record()
+            tfSaveFile.count++
         }
 
         tooltip: "Start recording"
