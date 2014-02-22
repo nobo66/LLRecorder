@@ -1,6 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.0
+import QtMultimedia 5.0
 import Qt.labs.folderlistmodel 2.1
 import com.nobo66.qaudiorecorderplugin 1.0
 
@@ -82,6 +83,7 @@ ApplicationWindow {
             text:qsTr("recorded files:")
         }
         TableView {
+            id:tblview
             width:colContentsRoot.width
             height: (colContentsRoot.height - (y-colContentsRoot.y) - bt_rec.height - colContentsRoot.spacing - colContentsRoot.anchors.bottomMargin)
 
@@ -109,6 +111,11 @@ ApplicationWindow {
                 height: bt_rec.height
                 action:stopAction
             }
+            Button{
+                width: bt_rec.width
+                height: bt_rec.height
+                action:playAction
+            }
         }
     }
 
@@ -124,7 +131,7 @@ ApplicationWindow {
 
         onAccepted: {
             console.log("You chose: " + fileDialog.fileUrls)
-//            tfSaveFolder.text = folder
+            tfSaveFolder.text = folder
         }
         onRejected: {
             console.log("Canceled")
@@ -140,7 +147,16 @@ ApplicationWindow {
     AudioRecorder{
         id:recorder
         source:tfSaveFolder.text+"/"+tfSaveFile.text+"_"+tfSaveFile.count
+        onFileExists:{
+            console.log("fileExists")
+            tfSaveFile.count++
+            recorder.record()
+        }
     }
+    Audio{
+        id:player
+    }
+
 
     Action {
         id: openAction
@@ -156,6 +172,9 @@ ApplicationWindow {
         onTriggered: {
             console.log("[LLRecorder]record!!")
             recorder.record()
+            //update TableView
+            folderModel.folder = ""
+            folderModel.folder = tfSaveFolder.text
             tfSaveFile.count++
         }
 
@@ -168,8 +187,32 @@ ApplicationWindow {
         onTriggered: {
             console.log("[LLRecorder]stop!!")
             recorder.stop()
+            //update TableView
+            folderModel.folder = ""
+            folderModel.folder = tfSaveFolder.text
         }
         tooltip: "Stop recording"
+    }
+    Action {
+        id: playAction
+        text: "Play(F7)"
+        shortcut: "F7"
+        onTriggered: {
+            console.log("[LLRecorder]play!!")
+            player.source = folderModel.get(tblview.currentRow, "filePath")
+            player.play()
+        }
+        tooltip: "Play selected file"
+    }
+    Action {
+        id: deleteAction
+        text: "Play(F8)"
+        shortcut: "F8"
+        onTriggered: {
+            console.log("[LLRecorder]delete file is not supported yet!!")
+            //don't know how to...
+        }
+        tooltip: "Delete selected file"
     }
 
 }

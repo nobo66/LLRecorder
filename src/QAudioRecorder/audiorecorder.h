@@ -15,11 +15,12 @@ public:
     ~AudioRecorder();
 
 public slots:
-    void record();
+    void record(bool overWrite=false);
     void stop();
 
 signals:
     void sourceChanged();
+    void fileExists();
 
 private:
     QAudioRecorder* m_audioRecorder;

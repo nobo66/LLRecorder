@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QAudioDeviceInfo>
 #include <QDir>
+#include <QFileInfo>
 
 AudioRecorder::AudioRecorder(QQuickItem *parent):
     QQuickItem(parent)
@@ -20,16 +21,29 @@ AudioRecorder::~AudioRecorder()
 {
 }
 
-void AudioRecorder::record()
+void AudioRecorder::record(bool overWrite)
 {
+    m_source.remove("file://");
+    QFileInfo source(m_source);
+#if defined Q_OS_MAC
+    QAudioEncoderSettings asettings = m_audioRecorder->audioSettings();
+    if(asettings.codec() == "audio/pcm")
+    {
+        source.setFile(m_source+".wav");
+    }
+#endif
+    qDebug() << "source.absoluteFilePath=" << source.absoluteFilePath();
+    qDebug() << "does file exists? -> " << source.exists();
+    if(source.exists() && overWrite==false){
+        emit fileExists();
+        return;
+    }
     m_audioRecorder->setOutputLocation(m_source);
-    qDebug() << "[AudioRecorder]record!! source=" << m_source;
     m_audioRecorder->record();
 }
 
 void AudioRecorder::stop()
 {
-    qDebug() << "[AudioRecorder]stop!!";
     m_audioRecorder->stop();
 }
 
