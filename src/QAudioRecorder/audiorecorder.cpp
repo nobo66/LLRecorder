@@ -19,6 +19,11 @@ AudioRecorder::AudioRecorder(QQuickItem *parent):
 
 AudioRecorder::~AudioRecorder()
 {
+    if(m_audioRecorder)
+    {
+        delete m_audioRecorder;
+        m_audioRecorder = NULL;
+    }
 }
 
 void AudioRecorder::record(bool overWrite)
