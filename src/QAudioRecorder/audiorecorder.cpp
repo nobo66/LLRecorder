@@ -31,6 +31,7 @@ void AudioRecorder::record(bool overWrite)
     m_source.remove("file://");
     QFileInfo source(m_source);
 #if defined Q_OS_MAC
+    //In MacOSX, file extension seems to be automatically added.
     QAudioEncoderSettings asettings = m_audioRecorder->audioSettings();
     if(asettings.codec() == "audio/pcm")
     {
