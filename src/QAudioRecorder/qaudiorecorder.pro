@@ -8,7 +8,7 @@ TARGET = $$qtLibraryTarget($$TARGET)
 uri = com.nobo66.qaudiorecorderplugin
 userapp = LLRecorder
 macx {
-    DESTDIR = $${userapp}.app/Contents/MacOS/$$replace(uri, \\., /)
+    DESTDIR = ../$${userapp}/$${userapp}.app/Contents/MacOS/$$replace(uri, \\., /)
 }
 
 # Input
