@@ -14,6 +14,7 @@
 #else
 #include <QGuiApplication>
 #endif
+#include <QQmlContext>
 
 QT_BEGIN_NAMESPACE
 
@@ -34,6 +35,11 @@ public:
     void setMainQmlFile(const QString &file);
     void addImportPath(const QString &path);
     void show();
+
+    //work around of the bug below.
+    //https://bugreports.qt-project.org/browse/QTCREATORBUG-11048
+    //http://qt-project.org/forums/viewthread/37597/
+    QQmlContext* rootContext();
 
 private:
     class QtQuick2ApplicationViewerPrivate *d;

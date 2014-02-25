@@ -100,3 +100,11 @@ void QtQuick2ControlsApplicationViewer::show()
     if (d->window)
         d->window->show();
 }
+
+//work around of the bug below.
+//https://bugreports.qt-project.org/browse/QTCREATORBUG-11048
+//http://qt-project.org/forums/viewthread/37597/
+QQmlContext *QtQuick2ControlsApplicationViewer::rootContext()
+{
+    return d->engine.rootContext();
+}

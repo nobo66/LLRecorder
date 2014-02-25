@@ -206,11 +206,12 @@ ApplicationWindow {
     }
     Action {
         id: deleteAction
-        text: "Play(F8)"
+        text: "Delete(F8)"
         shortcut: "F8"
         onTriggered: {
             console.log("[LLRecorder]delete file is not supported yet!!")
             //don't know how to...
+            fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
         }
         tooltip: "Delete selected file"
     }
