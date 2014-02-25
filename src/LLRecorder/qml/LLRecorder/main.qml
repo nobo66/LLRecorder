@@ -117,6 +117,11 @@ ApplicationWindow {
                 height: bt_rec.height
                 action:playAction
             }
+            Button{
+                width: bt_rec.width
+                height: bt_rec.height
+                action:deleteAction
+            }
         }
     }
 
