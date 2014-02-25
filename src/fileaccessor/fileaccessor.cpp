@@ -1,4 +1,5 @@
 #include "fileaccessor.h"
+#include <QFile>
 
 FileAccessor::FileAccessor(QQuickItem *parent):
     QQuickItem(parent)
@@ -12,5 +13,10 @@ FileAccessor::FileAccessor(QQuickItem *parent):
 
 FileAccessor::~FileAccessor()
 {
+}
+
+bool FileAccessor::remove(QString fileName)
+{
+    return QFile::remove(fileName);
 }
 

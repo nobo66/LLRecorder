@@ -11,6 +11,9 @@ class FileAccessor : public QQuickItem
 public:
     FileAccessor(QQuickItem *parent = 0);
     ~FileAccessor();
+
+public slots:
+    bool remove(QString fileName);
 };
 
 #endif // FILEACCESSOR_H
