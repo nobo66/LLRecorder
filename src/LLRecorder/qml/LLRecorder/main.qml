@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.0
 import QtMultimedia 5.0
 import Qt.labs.folderlistmodel 2.1
 import com.nobo66.qaudiorecorderplugin 1.0
+import com.nobo66.filesystem 1.0
 
 ApplicationWindow {
     id:root
