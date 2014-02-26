@@ -6,7 +6,10 @@
 
 AudioRecorder::AudioRecorder(QQuickItem *parent):
     QQuickItem(parent)
+  ,m_source("")
+  ,m_codecIndex(0)
 {
+    m_supportedCodecs.clear();
     // By default, QQuickItem does not draw anything. If you subclass
     // QQuickItem to create a visual item, you will need to uncomment the
     // following line and re-implement updatePaintNode()
@@ -63,6 +66,22 @@ void AudioRecorder::stop()
     m_audioRecorder->stop();
 }
 
+int AudioRecorder::codec(){
+    return m_codecIndex;
+}
+
+void AudioRecorder::setCodec(int value){
+    if(m_codecIndex!=value){
+        m_codecIndex = value;
+        QAudioEncoderSettings audioSettings;
+        qDebug() << "setCodec to " << m_supportedCodecs[m_codecIndex];
+        audioSettings.setCodec(m_supportedCodecs[m_codecIndex]);
+        audioSettings.setQuality(QMultimedia::HighQuality);
+        m_audioRecorder->setEncodingSettings(audioSettings);
+        emit codecChanged();
+    }
+}
+
 void AudioRecorder::initializeQAudioRecorder()
 {
     QStringList codecs;
@@ -70,7 +89,7 @@ void AudioRecorder::initializeQAudioRecorder()
     QAudioDeviceInfo outDeviceInfo(QAudioDeviceInfo::defaultOutputDevice());
     codecs = outDeviceInfo.supportedCodecs();
     for (int i = 0; i < codecs.size(); ++i) {
-         qDebug() << "out device supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
+        qDebug() << "out device supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
     }
     QAudioDeviceInfo inDeviceInfo(QAudioDeviceInfo::defaultInputDevice());
 
@@ -84,8 +103,10 @@ void AudioRecorder::initializeQAudioRecorder()
     m_audioRecorder = new QAudioRecorder(this);
 
     codecs = m_audioRecorder->supportedAudioCodecs();
-    for (int i = 0; i < codecs.size(); ++i)
-         qDebug() << "supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
+    for (int i = 0; i < codecs.size(); ++i){
+        m_supportedCodecs.append(codecs.at(i).toLocal8Bit().constData());
+        qDebug() << "supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
+    }
 
     QAudioEncoderSettings audioSettings;
 //    audioSettings.setCodec("audio/pcm");

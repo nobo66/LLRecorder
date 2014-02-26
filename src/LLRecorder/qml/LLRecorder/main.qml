@@ -39,6 +39,7 @@ ApplicationWindow {
             }
             Button {
                 id:btSaveFolder
+                width: 150
                 text: qsTr("Select Folder")
                 action: openAction
             }
@@ -55,6 +56,14 @@ ApplicationWindow {
                 text:"FileName"
                 onTextChanged: {
                     count = 01
+                }
+            }
+            ComboBox {
+                id:cbCodec
+                width: btSaveFolder.width
+                model: recorder.supportedCodecs
+                onCurrentIndexChanged: {
+                    recorder.codec = currentIndex
                 }
             }
         }
