@@ -30,15 +30,25 @@ void AudioRecorder::record(bool overWrite)
 {
     m_source.remove("file://");
     QFileInfo source(m_source);
-#if defined Q_OS_MAC
-    //In MacOSX, file extension seems to be automatically added.
     QAudioEncoderSettings asettings = m_audioRecorder->audioSettings();
-    if(asettings.codec() == "audio/pcm")
+    if(asettings.codec() == "audio/pcm" || asettings.codec() == "audio/PCM")
     {
-        source.setFile(m_source+".wav");
-    }
+        source.setFile(m_source + ".wav");
+#if defined Q_OS_MAC
+        //In MacOSX, file extension seems to be automatically added so do nothing.
+#elif defined Q_OS_LINUX
+        //added file extension
+        m_source += ".wav";
 #endif
+    } else {
+#if defined Q_OS_LINUX
+        QString extension = "." + (asettings.codec()).remove("audio/");
+        source.setFile(m_source + extension);
+        m_source = m_source + extension;
+#endif
+    }
     qDebug() << "source.absoluteFilePath=" << source.absoluteFilePath();
+    qDebug() << "m_source=" << m_source;
     qDebug() << "does file exists? -> " << source.exists();
     if(source.exists() && overWrite==false){
         emit fileExists();
