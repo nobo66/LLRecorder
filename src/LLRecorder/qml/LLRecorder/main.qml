@@ -146,7 +146,7 @@ ApplicationWindow {
         //ToDo:保存ファイルから取得する
         Component.onCompleted: {
 //            fileDialog.folder = "file:///Users/nobo66/Music/LLRecorder"
-            fileDialog.folder = "/home/noboru/temp/LLRecorder/"
+            fileDialog.folder = "/home/noboru/temp/LLRecorder"
         }
 
     }
