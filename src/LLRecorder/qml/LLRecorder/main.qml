@@ -8,6 +8,8 @@ import com.nobo66.filesystem 1.0
 
 ApplicationWindow {
     id:root
+    property real previousWidth:10
+    property real previousHeight:0
     title: qsTr("LLRecorder")
     width: 900
     height: 480
@@ -131,6 +133,11 @@ ApplicationWindow {
                 height: bt_rec.height
                 action:deleteAction
             }
+            Button{
+                width: bt_rec.width
+                height: bt_rec.height
+                action:toggleSizeAction
+            }
         }
     }
 
@@ -232,6 +239,20 @@ ApplicationWindow {
             tfSaveFile.count = 1
         }
         tooltip: "Delete selected file"
+    }
+    Action {
+        id: toggleSizeAction
+        text: "Toggle Size\n(F9)"
+        shortcut: "F9"
+        onTriggered: {
+            var tempHeight = root.height
+            var tempWidth = root.width
+            root.height = root.previousHeight
+            root.width = root.previousWidth
+            root.previousHeight = tempHeight
+            root.previousWidth = tempWidth
+        }
+        tooltip: "Toggle Window Size"
     }
 
 }
