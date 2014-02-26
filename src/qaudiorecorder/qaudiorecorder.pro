@@ -9,6 +9,8 @@ uri = com.nobo66.qaudiorecorderplugin
 userapp = LLRecorder
 macx {
     DESTDIR = ../$${userapp}/$${userapp}.app/Contents/MacOS/$$replace(uri, \\., /)
+} else:unix {
+    DESTDIR = ../$${userapp}/$$replace(uri, \\., /)
 }
 
 # Input
