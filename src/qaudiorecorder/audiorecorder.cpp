@@ -79,10 +79,17 @@ void AudioRecorder::initializeQAudioRecorder()
          qDebug() << "in device supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
     }
 
+
     qDebug() << "new QAudioRecorder";
     m_audioRecorder = new QAudioRecorder(this);
+
+    codecs = m_audioRecorder->supportedAudioCodecs();
+    for (int i = 0; i < codecs.size(); ++i)
+         qDebug() << "supported codecs" << i << codecs.at(i).toLocal8Bit().constData() << endl;
+
     QAudioEncoderSettings audioSettings;
 //    audioSettings.setCodec("audio/pcm");
+    qDebug() << "setCodec to " << codecs.at(0).toLocal8Bit().constData();
     audioSettings.setCodec(codecs.at(0).toLocal8Bit().constData());
     audioSettings.setQuality(QMultimedia::HighQuality);
 
