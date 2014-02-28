@@ -23,124 +23,143 @@ ApplicationWindow {
             }
         }
     }
-    Column{
-        id:colContentsRoot
-        spacing: 10
+    Row{
+        id:contentRoot
         anchors.fill: parent
         anchors.margins: 10
-        Row{
-            Label{
-                id:lbSaveFolder
-                width: 150
-                text:qsTr("save folder:")
-            }
-            TextField{
-                id:tfSaveFolder
-                text:fileDialog.folder
-                width:colContentsRoot.width - lbSaveFolder.width - btSaveFolder.width
-            }
-            Button {
-                id:btSaveFolder
-                width: 150
-                text: qsTr("Select Folder")
-                action: openAction
-            }
-        }
-        Row{
-            Label{
-                text:qsTr("file name:")
-                width:lbSaveFolder.width
-            }
-            TextField{
-                id:tfSaveFile
-                property int count:01
-                width:tfSaveFolder.width
-                text:"FileName"
-                onTextChanged: {
-                    count = 01
-                }
-            }
-            ComboBox {
-                id:cbCodec
-                width: btSaveFolder.width
-                model: recorder.supportedCodecs
-                onCurrentIndexChanged: {
-                    recorder.codec = currentIndex
-                }
-            }
-        }
-        Row{
-            Label{
-                text:qsTr("album name(id3tag):")
-                width:lbSaveFolder.width
-            }
-            TextField{
-                width:tfSaveFolder.width
-                text:qsTr("not supported")
-                enabled: false
-            }
-        }
-        Row{
-            Label{
-                text:qsTr("song name(id3tag):")
-                width:lbSaveFolder.width
-            }
-            TextField{
-                width:tfSaveFolder.width
-                text:qsTr("not supported")
-                enabled: false
-            }
-        }
-        Label{
-            text:qsTr("recorded files:")
-        }
-        TableView {
-            id:tblview
-            width:colContentsRoot.width
-            height: (colContentsRoot.height - (y-colContentsRoot.y) - bt_rec.height - colContentsRoot.spacing - colContentsRoot.anchors.bottomMargin)
-
-            focus:true
-            TableViewColumn{ role: "fileName"  ; title: "File" ; width: 300 }
-            TableViewColumn{ role: "album" ; title: "Album" }
-            model: folderModel
-            Keys.onPressed: {
-                console.log("key pressed")
-            }
-            Keys.onDeletePressed: {
-                console.log("delete pressed")
-            }
-        }
-        Row{
+        spacing: 10
+        Column{
+            id:colFirst
             spacing: 10
-            Button{
-                id:bt_rec
-                width: 100
-                height: 100
-                action:recordAction
+            width: contentRoot.width*0.7
+            height: contentRoot.height
+            Row{
+                Label{
+                    id:lbSaveFolder
+                    width: 150
+                    text:qsTr("save folder:")
+                }
+                TextField{
+                    id:tfSaveFolder
+                    text:fileDialog.folder
+                    width:colFirst.width - lbSaveFolder.width - btSaveFolder.width
+                }
+                Button {
+                    id:btSaveFolder
+                    width: 150
+                    text: qsTr("Select Folder")
+                    action: openAction
+                }
             }
-            Button{
-                width: bt_rec.width
-                height: bt_rec.height
-                action:stopAction
+            Row{
+                Label{
+                    text:qsTr("file name:")
+                    width:lbSaveFolder.width
+                }
+                TextField{
+                    id:tfSaveFile
+                    property int count:01
+                    width:tfSaveFolder.width
+                    text:"FileName"
+                    onTextChanged: {
+                        count = 01
+                    }
+                }
+                ComboBox {
+                    id:cbCodec
+                    width: btSaveFolder.width
+                    model: recorder.supportedCodecs
+                    onCurrentIndexChanged: {
+                        recorder.codec = currentIndex
+                    }
+                }
             }
-            Button{
-                width: bt_rec.width
-                height: bt_rec.height
-                action:playAction
+            Row{
+                Label{
+                    text:qsTr("album name(id3tag):")
+                    width:lbSaveFolder.width
+                }
+                TextField{
+                    width:tfSaveFolder.width
+                    text:qsTr("not supported")
+                    enabled: false
+                }
             }
-            Button{
-                width: bt_rec.width
-                height: bt_rec.height
-                action:deleteAction
+            Row{
+                Label{
+                    text:qsTr("song name(id3tag):")
+                    width:lbSaveFolder.width
+                }
+                TextField{
+                    width:tfSaveFolder.width
+                    text:qsTr("not supported")
+                    enabled: false
+                }
             }
-            Button{
-                width: bt_rec.width
-                height: bt_rec.height
-                action:toggleSizeAction
+            Label{
+                text:qsTr("recorded files:")
+            }
+            TableView {
+                id:tblview
+                width:colFirst.width
+                height: (colFirst.height - (y-colFirst.y) - bt_rec.height - colFirst.spacing - colFirst.anchors.bottomMargin)
+
+                focus:true
+                TableViewColumn{ role: "fileName"  ; title: "File" ; width: 300 }
+                TableViewColumn{ role: "album" ; title: "Album" }
+                model: folderModel
+                Keys.onPressed: {
+                    console.log("key pressed")
+                }
+                Keys.onDeletePressed: {
+                    console.log("delete pressed")
+                }
+            }
+            Row{
+                spacing: 10
+                Button{
+                    id:bt_rec
+                    width: 100
+                    height: 100
+                    action:recordAction
+                }
+                Button{
+                    width: bt_rec.width
+                    height: bt_rec.height
+                    action:stopAction
+                }
+                Button{
+                    width: bt_rec.width
+                    height: bt_rec.height
+                    action:playAction
+                }
+                Button{
+                    width: bt_rec.width
+                    height: bt_rec.height
+                    action:deleteAction
+                }
+                Button{
+                    width: bt_rec.width
+                    height: bt_rec.height
+                    action:toggleSizeAction
+                }
+            }
+        }
+        Column{
+            id:colSecond
+            width: contentRoot.width*0.3
+            height: contentRoot.height
+            spacing: 10
+            Label{
+                id:lbMemo
+                text:qsTr("memo for reading:")
+            }
+            TextArea{
+                width: colSecond.width - colSecond.spacing
+                height: colSecond.height - colSecond.spacing - lbMemo.height
             }
         }
     }
-
     FolderListModel{
         id:folderModel
         folder:tfSaveFolder.text
