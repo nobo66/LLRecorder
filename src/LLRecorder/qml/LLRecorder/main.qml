@@ -8,7 +8,7 @@ import com.nobo66.filesystem 1.0
 
 ApplicationWindow {
     id:root
-    property real previousWidth:10
+    property real previousWidth:100
     property real previousHeight:0
     title: qsTr("LLRecorder")
     width: 900
