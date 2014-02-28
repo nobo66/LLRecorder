@@ -193,8 +193,8 @@ ApplicationWindow {
     }
     Action {
         id: recordAction
-        text: "Record(F5)"
-        shortcut: "F5"
+        text: "Record(F2)"
+        shortcut: "F2"
         onTriggered: {
             console.log("[LLRecorder]record!!")
             recorder.record()
@@ -208,8 +208,8 @@ ApplicationWindow {
     }
     Action {
         id: stopAction
-        text: "Stop(F6)"
-        shortcut: "F6"
+        text: "Stop(F3)"
+        shortcut: "F3"
         onTriggered: {
             console.log("[LLRecorder]stop!!")
             recorder.stop()
@@ -221,8 +221,8 @@ ApplicationWindow {
     }
     Action {
         id: playAction
-        text: "Play(F7)"
-        shortcut: "F7"
+        text: "Play(F4)"
+        shortcut: "F4"
         onTriggered: {
             console.log("[LLRecorder]play!!")
             player.source = folderModel.get(tblview.currentRow, "filePath")
@@ -232,8 +232,8 @@ ApplicationWindow {
     }
     Action {
         id: deleteAction
-        text: "Delete(F8)"
-        shortcut: "F8"
+        text: "Delete(F5)"
+        shortcut: "F5"
         onTriggered: {
             fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
             tfSaveFile.count = 1
@@ -242,8 +242,8 @@ ApplicationWindow {
     }
     Action {
         id: toggleSizeAction
-        text: "Toggle Size\n(F9)"
-        shortcut: "F9"
+        text: "Toggle Size\n(F6)"
+        shortcut: "F6"
         onTriggered: {
             var tempHeight = root.height
             var tempWidth = root.width
