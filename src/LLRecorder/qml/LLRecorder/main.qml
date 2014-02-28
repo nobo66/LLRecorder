@@ -109,10 +109,12 @@ ApplicationWindow {
                 TableViewColumn{ role: "album" ; title: "Album" }
                 model: folderModel
                 Keys.onPressed: {
-                    console.log("key pressed")
-                }
-                Keys.onDeletePressed: {
-                    console.log("delete pressed")
+                    console.log("key pressed.event.key="+event.key)
+                    //On Mac OS X, Qt.Key_Backspace seems to be asigned to delete key.
+                    if((event.key === Qt.Key_Backspace) || (event.key === Qt.Key_Delete)){
+                        console.log("delete pressed")
+                        deleteAction.trigger()
+                    }
                 }
             }
             Row{
@@ -251,8 +253,8 @@ ApplicationWindow {
     }
     Action {
         id: deleteAction
-        text: "Delete(F5)"
-        shortcut: "F5"
+        text: "Delete\n(Ctrl+d)"
+        shortcut: "Ctrl+d"
         onTriggered: {
             fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
             tfSaveFile.count = 1
