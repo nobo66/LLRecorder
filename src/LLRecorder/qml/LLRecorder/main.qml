@@ -232,8 +232,9 @@ ApplicationWindow {
         text: "Stop(F3)"
         shortcut: "F3"
         onTriggered: {
-            console.log("[LLRecorder]stop!!")
+            console.log("[LLRecorder]stop record and play!!")
             recorder.stop()
+            player.stop()
             //update TableView
             folderModel.folder = ""
             folderModel.folder = tfSaveFolder.text
