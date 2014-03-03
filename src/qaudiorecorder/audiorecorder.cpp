@@ -37,17 +37,26 @@ void AudioRecorder::record(bool overWrite)
     if(asettings.codec() == "audio/pcm" || asettings.codec() == "audio/PCM")
     {
         source.setFile(m_source + ".wav");
-#if defined Q_OS_MAC
-        //In MacOSX, file extension seems to be automatically added so do nothing.
-#elif defined Q_OS_LINUX
+#if defined Q_OS_LINUX
         //added file extension
         m_source += ".wav";
+#elif defined Q_OS_WIN
+        //added file extension
+        m_source += ".wav";
+        //remove first "/"
+        m_source.remove(0,1);
+        source.setFile(m_source);
 #endif
     } else {
-#if defined Q_OS_LINUX
+        //other formats are not tested on Mac and Windows
         QString extension = "." + (asettings.codec()).remove("audio/");
         source.setFile(m_source + extension);
-        m_source = m_source + extension;
+#if defined Q_OS_LINUX
+        m_source += extension;
+#elif defined Q_OS_WIN
+        m_source += extension;
+        m_source.remove(0,1);
+        source.setFile(m_source);
 #endif
     }
     qDebug() << "source.absoluteFilePath=" << source.absoluteFilePath();
@@ -58,6 +67,8 @@ void AudioRecorder::record(bool overWrite)
         return;
     }
     m_audioRecorder->setOutputLocation(m_source);
+    //setOutputLocation doesn't work on Qt5.2.0 for windows
+    qDebug() << "outputLocation=" << m_audioRecorder->outputLocation();
     m_audioRecorder->record();
 }
 

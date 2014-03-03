@@ -184,6 +184,7 @@ ApplicationWindow {
         Component.onCompleted: {
             fileDialog.folder = "file:///Users/nobo66/Music/LLRecorder"
 //            fileDialog.folder = "/home/noboru/temp/LLRecorder"
+//            fileDialog.folder = "file:///C:/Users/Murakami/Temp/LLRecorder"
         }
 
     }

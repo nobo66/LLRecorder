@@ -11,6 +11,12 @@ macx {
     DESTDIR = ../$${userapp}/$${userapp}.app/Contents/MacOS/$$replace(uri, \\., /)
 } else:unix {
     DESTDIR = ../$${userapp}/$$replace(uri, \\., /)
+} else:win32 {
+    CONFIG(debug,debug|release) {
+      DESTDIR = ../$${userapp}/debug/$$replace(uri, \\., /)
+    } else {
+      DESTDIR = ../$${userapp}/release/$$replace(uri, \\., /)
+    }
 }
 
 # Input
