@@ -31,14 +31,15 @@ AudioRecorder::~AudioRecorder()
 
 void AudioRecorder::record(bool overWrite)
 {
-#if defined Q_OS_MAC
+#if defined Q_OS_WIN
+    m_source.remove("file:///");
+#else
     m_source.remove("file://");
 #endif
     QFileInfo source(m_source);
     QAudioEncoderSettings asettings = m_audioRecorder->audioSettings();
     if(asettings.codec() == "audio/pcm" || asettings.codec() == "audio/PCM")
     {
-        //setFile seems to have bug on Windows
         source.setFile(m_source + ".wav");
 #if (defined Q_OS_LINUX) || (defined Q_OS_WIN)
         //added file extension
@@ -52,6 +53,10 @@ void AudioRecorder::record(bool overWrite)
         m_source += extension;
 #endif
     }
+#if defined Q_OS_WIN
+    // "file:///" seems to be needed on Windows.
+    m_source.insert(0,"file:///");
+#endif
     qDebug() << "source.absoluteFilePath=" << source.absoluteFilePath();
     qDebug() << "m_source=" << m_source;
     qDebug() << "does file exists? -> " << source.exists();
@@ -60,7 +65,6 @@ void AudioRecorder::record(bool overWrite)
         return;
     }
     m_audioRecorder->setOutputLocation(m_source);
-    //setOutputLocation doesn't work on Qt5.2.0 for windows
     qDebug() << "outputLocation=" << m_audioRecorder->outputLocation();
     m_audioRecorder->record();
 }
