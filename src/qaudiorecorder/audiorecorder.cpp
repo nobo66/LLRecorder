@@ -31,7 +31,7 @@ AudioRecorder::~AudioRecorder()
 
 void AudioRecorder::record(bool overWrite)
 {
-#ifdef defined Q_OS_MAC
+#if defined Q_OS_MAC
     m_source.remove("file://");
 #endif
     QFileInfo source(m_source);
