@@ -200,6 +200,9 @@ ApplicationWindow {
     }
     Audio{
         id:player
+        onStopped: {
+            player.source = " "
+        }
     }
     FileAccessor{
         id:fileAccessor
