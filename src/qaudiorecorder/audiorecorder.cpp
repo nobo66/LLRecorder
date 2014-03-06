@@ -31,32 +31,25 @@ AudioRecorder::~AudioRecorder()
 
 void AudioRecorder::record(bool overWrite)
 {
+#ifdef defined Q_OS_MAC
     m_source.remove("file://");
+#endif
     QFileInfo source(m_source);
     QAudioEncoderSettings asettings = m_audioRecorder->audioSettings();
     if(asettings.codec() == "audio/pcm" || asettings.codec() == "audio/PCM")
     {
+        //setFile seems to have bug on Windows
         source.setFile(m_source + ".wav");
-#if defined Q_OS_LINUX
+#if (defined Q_OS_LINUX) || (defined Q_OS_WIN)
         //added file extension
         m_source += ".wav";
-#elif defined Q_OS_WIN
-        //added file extension
-        m_source += ".wav";
-        //remove first "/"
-        m_source.remove(0,1);
-        source.setFile(m_source);
 #endif
     } else {
         //other formats are not tested on Mac and Windows
         QString extension = "." + (asettings.codec()).remove("audio/");
         source.setFile(m_source + extension);
-#if defined Q_OS_LINUX
+#if (defined Q_OS_LINUX) || (defined Q_OS_WIN)
         m_source += extension;
-#elif defined Q_OS_WIN
-        m_source += extension;
-        m_source.remove(0,1);
-        source.setFile(m_source);
 #endif
     }
     qDebug() << "source.absoluteFilePath=" << source.absoluteFilePath();
