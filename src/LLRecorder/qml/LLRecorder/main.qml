@@ -263,6 +263,9 @@ ApplicationWindow {
         onTriggered: {
             fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
             tfSaveFile.count = 1
+            //update TableView
+            folderModel.folder = ""
+            folderModel.folder = tfSaveFolder.text
         }
         tooltip: "Delete selected file"
     }
