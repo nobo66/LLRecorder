@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS = \
     LLRecorder \
     qaudiorecorder \
-    fileaccessor
+    fileaccessor \
+    settingmanager
 
 CONFIG += ordered

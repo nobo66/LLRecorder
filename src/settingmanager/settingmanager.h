@@ -2,6 +2,7 @@
 #define SETTINGMANAGER_H
 
 #include <QQuickItem>
+#include <QJsonObject>
 
 class SettingManager : public QQuickItem
 {
@@ -11,6 +12,15 @@ class SettingManager : public QQuickItem
 public:
     SettingManager(QQuickItem *parent = 0);
     ~SettingManager();
+
+public slots:
+    void setValue(QString name, QVariant value);
+    QVariant getValue(QString name);
+    bool save();
+
+private:
+    QJsonObject m_json;
+    bool load();
 };
 
 #endif // SETTINGMANAGER_H

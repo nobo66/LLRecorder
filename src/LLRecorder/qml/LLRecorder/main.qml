@@ -5,6 +5,7 @@ import QtMultimedia 5.0
 import Qt.labs.folderlistmodel 2.1
 import com.nobo66.qaudiorecorderplugin 1.0
 import com.nobo66.filesystem 1.0
+import com.nobo66.settingmanager 1.0
 
 ApplicationWindow {
     id:root
@@ -179,14 +180,6 @@ ApplicationWindow {
         onRejected: {
             console.log("Canceled")
         }
-        //暫定処理
-        //ToDo:保存ファイルから取得する
-        Component.onCompleted: {
-            fileDialog.folder = "file:///Users/nobo66/Music/LLRecorder"
-//            fileDialog.folder = "/home/noboru/temp/LLRecorder"
-//            fileDialog.folder = "file:///C:/Users/Murakami/Temp/LLRecorder"
-        }
-
     }
 
     AudioRecorder{
@@ -206,6 +199,44 @@ ApplicationWindow {
     }
     FileAccessor{
         id:fileAccessor
+    }
+    SettingManager{
+        id:settingMgr
+        Component.onCompleted: {
+            var value = settingMgr.getValue("saveFolder")
+            if(value !== ""){
+                tfSaveFolder.text = value
+            }
+            value = settingMgr.getValue("saveFile")
+            if(value !== ""){
+                tfSaveFile.text = value
+            }
+            value = settingMgr.getValue("window_width")
+            if(value !== ""){
+                root.width = value
+            }
+            value = settingMgr.getValue("window_height")
+            if(value !== ""){
+                root.height = value
+            }
+            value = settingMgr.getValue("window_x")
+            if(value !== ""){
+                root.x = value
+            }
+            value = settingMgr.getValue("window_y")
+            if(value !== ""){
+                root.y = value
+            }
+        }
+        Component.onDestruction: {
+            settingMgr.setValue("saveFolder", tfSaveFolder.text)
+            settingMgr.setValue("saveFile", tfSaveFile.text)
+            settingMgr.setValue("window_width", root.width)
+            settingMgr.setValue("window_height", root.height)
+            settingMgr.setValue("window_x", root.x)
+            settingMgr.setValue("window_y", root.y)
+            settingMgr.save()
+        }
     }
 
 
