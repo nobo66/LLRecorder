@@ -24,16 +24,17 @@ ApplicationWindow {
             }
         }
     }
-    Row{
+    SplitView{
         id:contentRoot
         anchors.fill: parent
-        anchors.margins: 10
-        spacing: 10
+        Item{
+            width: contentRoot.width*0.7
+            height: contentRoot.height
         Column{
             id:colFirst
             spacing: 10
-            width: contentRoot.width*0.7
-            height: contentRoot.height
+            anchors.fill: parent
+            anchors.margins: 10
             Row{
                 Label{
                     id:lbSaveFolder
@@ -148,11 +149,15 @@ ApplicationWindow {
                 }
             }
         }
-        Column{
-            id:colSecond
+        }
+        Item{
             width: contentRoot.width*0.3
             height: contentRoot.height
-            spacing: 10
+        Column{
+            id:colSecond
+            anchors.fill: parent
+            anchors.margins: 10
+//            spacing: 10
             Label{
                 id:lbMemo
                 text:qsTr("memo for reading:")
@@ -161,6 +166,7 @@ ApplicationWindow {
                 width: colSecond.width - colSecond.spacing
                 height: colSecond.height - colSecond.spacing - lbMemo.height
             }
+        }
         }
     }
     FolderListModel{
