@@ -28,6 +28,7 @@ ApplicationWindow {
         id:contentRoot
         anchors.fill: parent
         Item{
+            id:itFirst
             width: contentRoot.width*0.7
             height: contentRoot.height
             Column{
@@ -163,6 +164,7 @@ ApplicationWindow {
                     text:qsTr("memo for reading:")
                 }
                 TextArea{
+                    id:taMemo
                     width: colSecond.width - colSecond.spacing
                     height: colSecond.height - colSecond.spacing - lbMemo.height
                 }
@@ -233,6 +235,14 @@ ApplicationWindow {
             if(value !== ""){
                 root.y = value
             }
+            value = settingMgr.getValue("column1_width")
+            if(value !== ""){
+                itFirst.width = value
+            }
+            value = settingMgr.getValue("memo")
+            if(value !== ""){
+                taMemo.text = value
+            }
         }
         Component.onDestruction: {
             settingMgr.setValue("saveFolder", tfSaveFolder.text)
@@ -241,6 +251,8 @@ ApplicationWindow {
             settingMgr.setValue("window_height", root.height)
             settingMgr.setValue("window_x", root.x)
             settingMgr.setValue("window_y", root.y)
+            settingMgr.setValue("column1_width", itFirst.width)
+            settingMgr.setValue("memo", taMemo.text)
             settingMgr.save()
         }
     }
