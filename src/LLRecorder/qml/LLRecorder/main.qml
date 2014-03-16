@@ -108,7 +108,7 @@ ApplicationWindow {
                     height: (colFirst.height - (y-colFirst.y) - bt_rec.height - colFirst.spacing - colFirst.anchors.bottomMargin)
 
                     focus:true
-                    TableViewColumn{ role: "fileName"  ; title: "File" ; width: 300 }
+                    TableViewColumn{ id:tvColumn1; role: "fileName"  ; title: "File" ; width: 300 }
                     TableViewColumn{ role: "album" ; title: "Album" }
                     model: folderModel
                     Keys.onPressed: {
@@ -243,6 +243,10 @@ ApplicationWindow {
             if(value !== ""){
                 taMemo.text = value
             }
+            value = settingMgr.getValue("tvColumn1_width")
+            if(value !== ""){
+                tvColumn1.width = value
+            }
         }
         Component.onDestruction: {
             settingMgr.setValue("saveFolder", tfSaveFolder.text)
@@ -253,6 +257,7 @@ ApplicationWindow {
             settingMgr.setValue("window_y", root.y)
             settingMgr.setValue("column1_width", itFirst.width)
             settingMgr.setValue("memo", taMemo.text)
+            settingMgr.setValue("tvColumn1_width", tvColumn1.width)
             settingMgr.save()
         }
     }
