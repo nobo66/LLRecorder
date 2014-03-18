@@ -6,7 +6,7 @@ The user can record one sentence repeatedly with different file name.
 The name of the saved file is "UserSpecifiedName + _ + Number + .extension".
 UserSpecifiedName can be set in "file name" field in LLRecorder app.
 Number is automatically incremented when start recording.
-extension is automatically added according to the file format.
+extension is automatically added according to the audio format.
 
 
 System requirements
