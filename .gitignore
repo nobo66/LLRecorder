@@ -27,3 +27,6 @@ Makefile*
 # QtCreator
 
 *.autosave
+
+# Mac
+.DS_Store
