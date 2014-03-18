@@ -1,7 +1,7 @@
 LLRecorder
 ----------
-LLRecorder(Language Lerning Recorder) is a simple audio recorder for 
-language lerning.
+LLRecorder(Language Learning Recorder) is a simple audio recorder for 
+language learning.
 The user can record one sentence repeatedly with different file name. 
 The name of the saved file is "UserSpecifiedName + _ + Number + .extension".
 UserSpecifiedName can be set in "file name" field in LLRecorder app.
