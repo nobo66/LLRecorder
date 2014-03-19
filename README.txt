@@ -14,11 +14,18 @@ System requirements
 Qt5.2.0 or later
 
 
+Tested environment
+------------------
+- Qt5.2.1 on Mac OS X Mavericks 10.9.2
+- Qt5.2.1 on Windows7 64bit (not tested well)
+- Qt5.2.0 on Gentoo Linux 64bit (not tested well)
+
+
 Build and run
 -------------
-- open src/LLRecorderProjects.pro by Qt Creator.
-- select build->build LLRecorderProjects project(Ctrl+B).
-- select build->run(Ctrl+R).
+- Open src/LLRecorderProjects.pro by Qt Creator.
+- Select build->build LLRecorderProjects project(Ctrl+B).
+- Select build->run(Ctrl+R).
 
 
 Questions/Issues/Comments
