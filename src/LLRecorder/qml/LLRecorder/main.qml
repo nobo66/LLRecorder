@@ -141,10 +141,8 @@ ApplicationWindow {
                     TableViewColumn{ role: "album" ; title: "Album" }
                     model: folderModel
                     Keys.onPressed: {
-                        console.log("key pressed.event.key="+event.key)
                         //On Mac OS X, Qt.Key_Backspace seems to be asigned to delete key.
                         if((event.key === Qt.Key_Backspace) || (event.key === Qt.Key_Delete)){
-                            console.log("delete pressed")
                             deleteAction.trigger()
                         }
                     }
@@ -211,11 +209,7 @@ ApplicationWindow {
         selectFolder: true
 
         onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrls)
             tfSaveFolder.text = folder
-        }
-        onRejected: {
-            console.log("Canceled")
         }
     }
 
@@ -223,7 +217,6 @@ ApplicationWindow {
         id:recorder
         source:tfSaveFolder.text+"/"+tfSaveFile.text+"_"+tfSaveFile.count
         onFileExists:{
-            console.log("fileExists")
             tfSaveFile.count++
             recorder.record()
         }
@@ -304,7 +297,6 @@ ApplicationWindow {
         text: "Record(F2)"
         shortcut: "F2"
         onTriggered: {
-            console.log("[LLRecorder]record!!")
             recorder.record()
             //update TableView
             folderModel.folder = ""
@@ -319,7 +311,6 @@ ApplicationWindow {
         text: "Stop(F3)"
         shortcut: "F3"
         onTriggered: {
-            console.log("[LLRecorder]stop record and play!!")
             recorder.stop()
             player.stop()
             //update TableView
@@ -333,7 +324,6 @@ ApplicationWindow {
         text: "Play(F4)"
         shortcut: "F4"
         onTriggered: {
-            console.log("[LLRecorder]play!!")
             player.source = folderModel.get(tblview.currentRow, "filePath")
             player.play()
         }
