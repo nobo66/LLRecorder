@@ -79,7 +79,6 @@ ApplicationWindow {
                     Button {
                         id:btSaveFolder
                         width: 150
-                        text: qsTr("Select Folder")
                         action: openAction
                     }
                 }
@@ -137,8 +136,8 @@ ApplicationWindow {
                     height: (colFirst.height - (y-colFirst.y) - bt_rec.height - colFirst.spacing - colFirst.anchors.bottomMargin)
 
                     focus:true
-                    TableViewColumn{ id:tvColumn1; role: "fileName"  ; title: "File" ; width: 300 }
-                    TableViewColumn{ role: "album" ; title: "Album" }
+                    TableViewColumn{ id:tvColumn1; role: "fileName"  ; title: qsTr("File") ; width: 300 }
+                    TableViewColumn{ role: "album" ; title: qsTr("Album") }
                     model: folderModel
                     Keys.onPressed: {
                         //On Mac OS X, Qt.Key_Backspace seems to be asigned to delete key.
@@ -205,7 +204,7 @@ ApplicationWindow {
 
     FileDialog {
         id: fileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file")
         selectFolder: true
 
         onAccepted: {
@@ -287,14 +286,14 @@ ApplicationWindow {
 
     Action {
         id: openAction
-        text: "&Open"
+        text: qsTr("Select Folder")
         shortcut: "Ctrl+O"
         onTriggered: fileDialog.open()
-        tooltip: "Open an Image"
+        tooltip: qsTr("Select save folder")
     }
     Action {
         id: recordAction
-        text: "Record(F2)"
+        text: qsTr("Record(F2)")
         shortcut: "F2"
         onTriggered: {
             recorder.record()
@@ -304,11 +303,11 @@ ApplicationWindow {
             tfSaveFile.count++
         }
 
-        tooltip: "Start recording"
+        tooltip: qsTr("Start recording")
     }
     Action {
         id: stopAction
-        text: "Stop(F3)"
+        text: qsTr("Stop(F3)")
         shortcut: "F3"
         onTriggered: {
             recorder.stop()
@@ -317,21 +316,21 @@ ApplicationWindow {
             folderModel.folder = ""
             folderModel.folder = tfSaveFolder.text
         }
-        tooltip: "Stop recording"
+        tooltip: qsTr("Stop recording")
     }
     Action {
         id: playAction
-        text: "Play(F4)"
+        text: qsTr("Play(F4)")
         shortcut: "F4"
         onTriggered: {
             player.source = folderModel.get(tblview.currentRow, "filePath")
             player.play()
         }
-        tooltip: "Play selected file"
+        tooltip: qsTr("Play selected file")
     }
     Action {
         id: deleteAction
-        text: "Delete\n(Ctrl+d)"
+        text: qsTr("Delete\n(Ctrl+d)")
         shortcut: "Ctrl+d"
         onTriggered: {
             fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
@@ -340,11 +339,11 @@ ApplicationWindow {
             folderModel.folder = ""
             folderModel.folder = tfSaveFolder.text
         }
-        tooltip: "Delete selected file"
+        tooltip: qsTr("Delete selected file")
     }
     Action {
         id: toggleSizeAction
-        text: "Toggle Size\n(F6)"
+        text: qsTr("Toggle Size\n(F6)")
         shortcut: "F6"
         onTriggered: {
             var tempHeight = root.height
@@ -354,7 +353,7 @@ ApplicationWindow {
             root.previousHeight = tempHeight
             root.previousWidth = tempWidth
         }
-        tooltip: "Toggle Window Size"
+        tooltip: qsTr("Toggle Window Size")
     }
 
 }

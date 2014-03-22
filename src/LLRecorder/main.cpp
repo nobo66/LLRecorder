@@ -27,12 +27,22 @@
 ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 ** EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ****************************************************************************/
+#include <QtCore/QTranslator>
+#include <QtCore/QLocale>
 #include "qtquick2controlsapplicationviewer.h"
 
 int main(int argc, char *argv[])
 {
     Application app(argc, argv);
 
+#if defined(Q_OS_MAC)
+    QString dir = QString("%1/../Resources/qml/LLRecorder/i18n").arg(QCoreApplication::applicationDirPath());
+#else
+    QString dir("qml/LLRecorder/i18n");
+#endif
+    QTranslator translator;
+    translator.load(QString("qml_%1").arg(QLocale::system().name()), dir);
+    app.installTranslator(&translator);
     QtQuick2ControlsApplicationViewer viewer;
     viewer.setMainQmlFile(QStringLiteral("qml/LLRecorder/main.qml"));
     viewer.show();
