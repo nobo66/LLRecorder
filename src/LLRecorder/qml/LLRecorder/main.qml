@@ -209,6 +209,9 @@ ApplicationWindow {
 
         onAccepted: {
             tfSaveFolder.text = folder
+            //update TableView
+            folderModel.folder = ""
+            folderModel.folder = tfSaveFolder.text
         }
     }
 
