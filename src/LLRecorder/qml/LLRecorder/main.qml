@@ -75,6 +75,10 @@ ApplicationWindow {
                         id:tfSaveFolder
                         text:fileDialog.folder
                         width:colFirst.width - lbSaveFolder.width - btSaveFolder.width
+                        onTextChanged: {
+                            //update file list
+                            folderModel.update()
+                        }
                     }
                     Button {
                         id:btSaveFolder
@@ -213,8 +217,6 @@ ApplicationWindow {
 
         onAccepted: {
             tfSaveFolder.text = folder
-            //update file list
-            folderModel.update()
         }
     }
 
