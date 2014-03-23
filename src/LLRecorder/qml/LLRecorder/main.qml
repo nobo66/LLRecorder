@@ -200,6 +200,10 @@ ApplicationWindow {
     FolderListModel{
         id:folderModel
         folder:tfSaveFolder.text
+        function update(){
+            folderModel.folder = ""
+            folderModel.folder = tfSaveFolder.text
+        }
     }
 
     FileDialog {
@@ -209,9 +213,8 @@ ApplicationWindow {
 
         onAccepted: {
             tfSaveFolder.text = folder
-            //update TableView
-            folderModel.folder = ""
-            folderModel.folder = tfSaveFolder.text
+            //update file list
+            folderModel.update()
         }
     }
 
@@ -300,9 +303,8 @@ ApplicationWindow {
         shortcut: "F2"
         onTriggered: {
             recorder.record()
-            //update TableView
-            folderModel.folder = ""
-            folderModel.folder = tfSaveFolder.text
+            //update file list
+            folderModel.update()
             tfSaveFile.count++
         }
 
@@ -315,9 +317,8 @@ ApplicationWindow {
         onTriggered: {
             recorder.stop()
             player.stop()
-            //update TableView
-            folderModel.folder = ""
-            folderModel.folder = tfSaveFolder.text
+            //update file list
+            folderModel.update()
         }
         tooltip: qsTr("Stop recording")
     }
@@ -338,9 +339,8 @@ ApplicationWindow {
         onTriggered: {
             fileAccessor.remove(folderModel.get(tblview.currentRow, "filePath"))
             tfSaveFile.count = 1
-            //update TableView
-            folderModel.folder = ""
-            folderModel.folder = tfSaveFolder.text
+            //update file list
+            folderModel.update()
         }
         tooltip: qsTr("Delete selected file")
     }
