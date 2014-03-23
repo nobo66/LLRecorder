@@ -32,6 +32,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.0
 import QtMultimedia 5.0
 import Qt.labs.folderlistmodel 2.1
+import Qt.labs.settings 1.0
 import com.nobo66.qaudiorecorderplugin 1.0
 import com.nobo66.filesystem 1.0
 import com.nobo66.settingmanager 1.0
@@ -232,58 +233,32 @@ ApplicationWindow {
     FileAccessor{
         id:fileAccessor
     }
+    //SettingManager should be replased to Settings
     SettingManager{
         id:settingMgr
         Component.onCompleted: {
-            var value = settingMgr.getValue("saveFolder")
-            if(value !== ""){
-                tfSaveFolder.text = value
-            }
-            value = settingMgr.getValue("saveFile")
-            if(value !== ""){
-                tfSaveFile.text = value
-            }
-            value = settingMgr.getValue("window_width")
-            if(value !== ""){
-                root.width = value
-            }
-            value = settingMgr.getValue("window_height")
-            if(value !== ""){
-                root.height = value
-            }
-            value = settingMgr.getValue("window_x")
-            if(value !== ""){
-                root.x = value
-            }
-            value = settingMgr.getValue("window_y")
-            if(value !== ""){
-                root.y = value
-            }
-            value = settingMgr.getValue("column1_width")
+            var value = settingMgr.getValue("column1_width")
             if(value !== ""){
                 itFirst.width = value
             }
-            value = settingMgr.getValue("memo")
-            if(value !== ""){
-                taMemo.text = value
-            }
-            value = settingMgr.getValue("tvColumn1_width")
-            if(value !== ""){
-                tvColumn1.width = value
-            }
         }
         Component.onDestruction: {
-            settingMgr.setValue("saveFolder", tfSaveFolder.text)
-            settingMgr.setValue("saveFile", tfSaveFile.text)
-            settingMgr.setValue("window_width", root.width)
-            settingMgr.setValue("window_height", root.height)
-            settingMgr.setValue("window_x", root.x)
-            settingMgr.setValue("window_y", root.y)
             settingMgr.setValue("column1_width", itFirst.width)
-            settingMgr.setValue("memo", taMemo.text)
-            settingMgr.setValue("tvColumn1_width", tvColumn1.width)
             settingMgr.save()
         }
+    }
+    Settings{
+        id:setting01
+        property alias saveFolder: tfSaveFolder.text
+        property alias saveFile: tfSaveFile.text
+        property alias window_width: root.width
+        property alias window_height: root.height
+        property alias window_x: root.x
+        property alias window_y: root.y
+        //the result of itFirst.width(contentRoot.width*0.7) seems to be assigned every time instead of saved data.
+//        property alias column1_width: itFirst.width
+        property alias memo: taMemo.text
+        property alias tvColumn1_width: tvColumn1.width
     }
 
 
